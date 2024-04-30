@@ -1,66 +1,22 @@
-// src/App.js
+import React from "react";
+import AppointmentScheduler from "./components/info/info";
+import ButtonComponent from "./components/carousel_button/buttons";
+import Section from "./components/section1/section1";
+import CustomCard from "./components/custom_card/custom_card";
+import SocialMedia from "./components/social_media/social_media";
+import EndPage from "./components/end_page/end_page";
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-function App() {
-    const [notes, setNotes] = useState([]);
-    const [newNote, setNewNote] = useState('');
-
-    useEffect(() => {
-        fetchNotes();
-    }, []);
-
-    const fetchNotes = () => {
-        axios.get('/api/notes')
-            .then(response => {
-                setNotes(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching notes:', error);
-            });
-    };
-
-    const addNote = () => {
-        axios.post('/api/notes', { text: newNote })
-            .then(response => {
-                setNotes([...notes, response.data]);
-                setNewNote('');
-            })
-            .catch(error => {
-                console.error('Error adding note:', error);
-            });
-    };
-
-    const deleteNote = (id) => {
-        axios.delete(`/api/notes/${id}`)
-            .then(() => {
-                setNotes(notes.filter(note => note.id !== id));
-            })
-            .catch(error => {
-                console.error('Error deleting note:', error);
-            });
-    };
-
-    return (
-        <div>
-            <h1>Notes App</h1>
-            <input
-                type="text"
-                value={newNote}
-                onChange={(e) => setNewNote(e.target.value)}
-            />
-            <button onClick={addNote}>Add Note</button>
-            <ul>
-                {notes.map(note => (
-                    <li key={note.id}>
-                        {note.text}
-                        <button onClick={() => deleteNote(note.id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+const App = () => {
+  return (
+    <div>
+        <Section />
+        <CustomCard />
+        <AppointmentScheduler />
+        <ButtonComponent />
+        <SocialMedia />
+        <EndPage />
+    </div>
+  )
 }
 
-export default App;
+export default App
