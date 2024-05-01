@@ -19,7 +19,7 @@ class AppointmentScheduler extends Component {
   }
 
   getAppointments = () => {
-    axios.get('http://localhost:5001/appointments')
+    axios.get('https://polar-ridge-93106-f8dd6874faea.herokuapp.com/appointments')
       .then(response => {
         this.setState({ appointments: response.data });
       })
@@ -38,7 +38,7 @@ class AppointmentScheduler extends Component {
       return;
     }
 
-    axios.post('http://localhost:5001/appointments', { timeSlot })
+    axios.post('https://polar-ridge-93106-f8dd6874faea.herokuapp.com/appointments', { timeSlot })
       .then(() => {
         const { appointments } = this.state;
         appointments[timeSlot] = 'busy';
@@ -86,7 +86,8 @@ class AppointmentScheduler extends Component {
               <p>В воскресенье не работаем.</p>
             ) : (
               <>
-                <p>Дата и время: {scheduledTime}, {formattedDate}</p>
+                <p>Время: {scheduledTime}</p>
+                <p>Дата: {formattedDate}</p>
                 <p>День недели: {dayNamesShort[currentDate.getDay()]}</p>
               </>
             )}
